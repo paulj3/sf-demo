@@ -1,0 +1,30 @@
+version: '3'
+services:
+    db:
+        image: mysql
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: symfony
+            MYSQL_USER: symfony
+            MYSQL_PASSWORD: symfony
+    web:
+        image: nginx:latest
+        ports:
+            - "80:80"
+        volumes:
+            - .:/var/www/sfdemo
+            - ./docker/nginx.conf:/etc/nginx/conf.d/nginx.conf
+
+    php:
+        image: php:7-fpm
+        volumes:
+            - .:/var/www/sfdemo
+
+    composer:
+        image: composer:latest
+        command: install
+        working_dir: /var/www/sfdemo
+        volumes:
+            - .:/var/www/sfdemo
