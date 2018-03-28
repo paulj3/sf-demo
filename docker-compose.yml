@@ -4,6 +4,7 @@ services:
         image: mysql
         ports:
             - "3306:3306"
+        restart: always
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: symfony
@@ -28,3 +29,8 @@ services:
         working_dir: /var/www/sfdemo
         volumes:
             - .:/var/www/sfdemo
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+            - 8080:8080
